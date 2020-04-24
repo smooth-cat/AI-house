@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="./login.css">
+    <link rel="stylesheet" href="./icon-font.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+
+
+<body>
+    <form id="mform" target="ifram" action="http://aihouse.club/node/user/insert" method="POST" >
+        <h1 id="big_title">Sign in to Smart Home</h1>
+        <div class="item">
+            <i class="iconfont icon-cat"></i>
+            <input id="name" name="name" type="text" minlength="4" autocomplete="off" placeholder="User  Name" />
+        </div>
+        <div class="item">
+            <i class="iconfont icon-key"></i>
+            <input id="password" name="password" type="password" minlength="4" autocomplete="off" placeholder="Pass  Word" />
+        </div>
+        <button id="btn" name="way" value="login">Login</button>
+    </form>
+    <iframe id="ifram" name="ifram"></iframe>
+</body>
+<!-- 测试 -->
+
+<script src="./login.js"></script>
+<!-- <script src="./login2.js"></script> -->
+
+
+
+
+</html>

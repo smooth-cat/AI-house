@@ -1,0 +1,127 @@
+html, body, div, h1, h2, h3, h4, h5, h6, p, span, img, input,button {
+	margin: 0;
+    padding: 0;
+    border: 0;
+}
+body{
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    background-image: url(../imgs/login_bg.jpg);
+    background-position: center top;
+    background-size: cover;
+}
+#big_title{ 
+    position: relative;
+    /* color: #fff; */
+    background-image: -webkit-linear-gradient(120deg, #ffffff 0%,#faf457  100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 50px;
+    margin-top: 10%;
+    margin-bottom: 40px;
+
+}
+.iconfont{
+    background-image: -webkit-linear-gradient(120deg, #ffffffd4 0%, #fce48c 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    /* color: rgb(42, 33, 33); */
+    font-size: 40px;
+    margin-right: 3px;
+}
+.item{
+    margin-bottom: 40px;
+}
+.item input{
+   caret-color:rgba(226, 219, 219, 0.884);;
+   font-size: 30px;
+   color: rgb(247, 240, 240);
+   border: 0;
+   border-bottom: 2.5px solid rgba(255, 255, 255, 0.707);
+   padding: 5px 10px;
+   background: #f8f4f400;
+   height: 36px;
+   text-align: center;
+}
+.item input:focus{
+    outline: none;
+}
+.item input::-webkit-input-placeholder{
+    color: rgba(120, 116, 116, 0.884);
+    font-size: 34px;
+    text-align: center;
+}
+#mform{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 650px;
+    height: 470px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -235px;
+    margin-left: -325px;
+    /* border: 1px solid #000; */
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+	overflow: hidden;
+    z-index: 2;
+	box-sizing: border-box;
+}
+
+#mform::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	-webkit-filter: blur(10px);
+	-moz-filter: blur(10px);
+	-ms-filter: blur(10px);
+	-o-filter: blur(10px);
+	filter: blur(10px);
+	z-index: -3;
+	margin: -30px;
+	background-image: url(../imgs/login_bg.jpg);
+	background-position: center top;
+	background-size: cover;
+	background-attachment: fixed;
+}
+#mform button{
+    margin-left: 20px;
+    font-size: 40px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.952);
+    background-image: linear-gradient(to right, #fce48c 0%, #6f6158 100%);
+    width: 380px;
+    height: 60px;
+    border-radius: 30px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#ifram{
+    display: none;
+}
