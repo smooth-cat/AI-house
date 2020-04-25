@@ -1,32 +1,35 @@
 const mysql = require('mysql')
 const express = require('express')
 const bodyParser = require('body-parser')
-const { logReg,getTemperature,shutdown } = require('./hanler')//
+const { login, register, getTemperature, shutdown } = require('./hanler')//
 const app = express()
 app.use(bodyParser.json()) // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true }))
 
 /*------------动态请求-------------*/
-app.get('/node/temperature', async(req, res) => {//响应实时温度请求
+app.get('/node/temperature', async (req, res) => {//响应实时温度请求
     console.log(req.query);
-    var temperature=await getTemperature(pool,req.query)
+    var temperature = await getTemperature(pool, req.query)
     res.send(temperature.toString());
 })
 
-app.post('/node/user/insert',async (req, res) => {//响应表单请求
-    try {
-        var answer= await logReg(pool,req.body)
-        var str=JSON.stringify(answer)
-        console.log('response:', str);
-        res.send(str)
-    } catch (error) {
-        res.send(error.message)
-    }
+app.post('/node/user/login', async (req, res) => {//响应登录请求
+    var answer = await login(pool, req.body)
+    var str = JSON.stringify(answer)
+    console.log('response:', str);
+    res.send(str)
 })
 
-app.get('/node/shutdown',(req,res)=>{//响应关闭检测温度
+app.post('/node/user/register', async (req, res) => {//响应注册请求
+    var answer = await register(pool, req.body)
+    var str = JSON.stringify(answer)
+    console.log('response:', str);
+    res.send(str)
+})
+
+app.get('/node/shutdown', (req, res) => {//响应用户退出请求
     console.log('执行到shutdown');
-    var result=shutdown(pool,req.query);
+    var result = shutdown(pool, req.query);
     res.send(result);
 })
 /*------------连接数据库 ------------*/

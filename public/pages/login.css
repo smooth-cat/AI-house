@@ -11,6 +11,9 @@ body{
     background-position: center top;
     background-size: cover;
 }
+button{
+    outline: none;
+}
 #big_title{ 
     position: relative;
     /* color: #fff; */
@@ -57,7 +60,7 @@ body{
     flex-direction: column;
     align-items: center;
     width: 650px;
-    height: 470px;
+    height: auto;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -90,7 +93,8 @@ body{
 	background-size: cover;
 	background-attachment: fixed;
 }
-#mform button{
+#btn{
+    margin-bottom: 50px;
     margin-left: 20px;
     font-size: 40px;
     font-weight: 600;
@@ -100,28 +104,38 @@ body{
     height: 60px;
     border-radius: 30px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#ifram{
+#confirm_con{
     display: none;
 }
+#change_btn{
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    font-size: large;
+    font-weight: bold;
+    padding: 2px;
+    border-bottom: 1.5px solid rgb(11, 245, 30);
+    color: rgb(11, 245, 30);
+    background: #ffffff00;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

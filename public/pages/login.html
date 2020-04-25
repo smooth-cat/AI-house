@@ -8,28 +8,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-
-
-
 <body>
-    <form id="mform" target="ifram" action="http://aihouse.club/node/user/insert" method="POST" >
+    <div id="mform"  >
+        <button id="change_btn" onclick="changeMode()">to register</button>
         <h1 id="big_title">Sign in to Smart Home</h1>
         <div class="item">
             <i class="iconfont icon-cat"></i>
-            <input id="name" name="name" type="text" minlength="4" autocomplete="off" placeholder="User  Name" />
+            <input id="name"  type="text"  autocomplete="off" placeholder="User  Name" />
         </div>
         <div class="item">
             <i class="iconfont icon-key"></i>
-            <input id="password" name="password" type="password" minlength="4" autocomplete="off" placeholder="Pass  Word" />
+            <input id="password"  type="password"  autocomplete="off" placeholder="Pass  Word" />
         </div>
-        <button id="btn" name="way" value="login">Login</button>
-    </form>
-    <iframe id="ifram" name="ifram"></iframe>
+        <div class="item" id="confirm_con">
+            <i class="iconfont icon-key"></i> 
+            <input id="confirm"  type="password"  autocomplete="off" placeholder="Confirm" />
+        </div>
+        <button id="btn" name="way" value="login" onclick="onClick()">Login</button>
+    </div>
 </body>
-<!-- 测试 -->
+<!-- 控制登录框的位置 -->
+<script>
+    var form=document.getElementById('mform')
+    var {height}=getComputedStyle(form,null)
+    height=height.substring(0,height.length-2)
+    form.style.cssText=`margin-top: -${height/2}px;`
+</script>
+<!-- <script src="./login.js"></script> -->
+<script src="./login2.js"></script>
 
-<script src="./login.js"></script>
-<!-- <script src="./login2.js"></script> -->
 
 
 
