@@ -1,14 +1,238 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+   <link rel="stylesheet" href="./index.css">
+   <link rel="stylesheet" href="./icon-font.css">
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
 </head>
+ 
 <body>
-    <h1>测试页面&nbsp;&nbsp;&nbsp;温度为：<span id="temp"></span></h1>
-    <img src="../imgs/caiquan.png" alt="">
+   <div id="app">
+      <!-- 标题栏左上角-->
+      <div class="title">
+         <div><img class="t_img" src="../imgs/title.png" ></div>
+         <div class="t_con">
+            <div class="t_name">User:{{name}}</div>
+            <div class="t_set" @click="show_slide" >
+               Settings<img src="../imgs/setting.png"> 
+            </div>
+         </div>
+      </div>
+      <!-- 侧边栏 -->
+      <div class="slide_bar" :style="{width:slide_w+'px'}">
+         <div class="s_con">
+            <div class="s_close"><i @click="show_slide" class="iconfont icon-close" ></i></div>
+            <div class="s_ava_name">
+               <img  src="../imgs/caiquan.png"><span class="s_name">{{name}}</span>
+            </div>
+            <ul class="s_ul">
+               <li class="s_li" v-for="v in slide_items">{{v}}</li>
+            </ul> 
+         </div>
+      </div> 
+      <!-- 温度 -->
+      <div class="temp_damp">
+         <div class="map">温度:{{temperature}}℃</div>
+         <div class="map">湿度:{{damp}}%</div>
+      </div>
+
+      <div class="air_light">
+         <!-- 选择（空调/灯光）按钮 -->
+         <ul class="option">
+            <li :class="{big:is_air}" @click="switch_air">空调</li>
+            <li :class="{big:!is_air}" @click="switch_light">灯光</li>
+         </ul>
+         <!-- 空调 -->
+         <div v-show="is_air" class="air">
+            <!-- 屏幕 -->
+            <div class="screen">
+               <div class="switch_state">AC: <span :class="{off:disable}">{{sw_state}}</span> </div>
+               <div class="on_dispel_damp">{{damp_dispel}}</div>
+               <div class="show_temp">{{aim_temp}}</div>
+               <div class="mode_wind">
+                  <div class="mode">模式：{{mode}}</div>
+                  <div class="wind">风速：{{wind}}</div>
+               </div>
+            </div>
+            <!-- 按钮界面 -->
+            <div class="opr">
+               <div class="items">Tips:{{exceeds_limit}}</div>
+               <div class="items">
+                  输入温度 <input id="num" type="number" placeholder="请输入15℃~30℃" :disabled="disable"
+                     v-model.number="input_temp">
+                  <button @click="set_temp" :disabled="disable">确认温度</button>
+               </div>
+               <div class="items">
+                  风速：<input min="1" max="3" v-model="speed" type="range" :disabled="disable">
+               </div>
+               <div class="items">模式：<br>
+                  <button class="on_off" @click="on_off">开关</button>
+                  <button class="remove_damp" :disabled="disable" @click="dispel">除湿</button>
+                  <!-- 模式选择 -->
+                  <div v-for="item in modes" :key="item.picked_id">
+                     <input type="radio" :id="item.mode_name" :value="item.mode_name" v-model="mode"
+                        :disabled="disable">
+                     <label :for="item.mode_name">{{item.mode_name}}</label>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- 灯光 -->
+         <div v-show="!is_air" class="light">
+            <div v-for="v in lights2" class="four_modules">
+               <div class="room_name">{{v.name}}灯光亮度:{{v.s}}</div>
+               <input class="slide" type="range" :id="v.id" min="0" step="1" max="100" v-model="v.s">
+               <img class="db_bg" :style="{opacity:(v.s/100*0.8+0.2)}" :src="v.bg">
+               <div class="cover"></div>
+            </div>
+
+            <div v-for="v in lights" class="four_modules" >
+               <div :class="{room_name:true,room_name_on:v.s}">{{v.name}}灯：{{v.s?'亮':'暗'}}</div>
+               <input class="inp" type="checkbox" :id="v.id" v-model="v.s">
+               <label :for="v.id"><img :src="v.s==true?'../imgs/on3.png':'../imgs/off.png'" width="40px"></label>
+               <img class="db_bg" :src="v.s==true?v.off_bg:v.on_bg">
+            </div>
+         </div> 
+      </div>
+      <div v-show="false">{{air_states}}{{light_states}}</div>
+
+   </div>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="./index.js"></script>
+<!-- <script>
+   var vm = new Vue({
+      el: '#app',
+      data() {
+         return {
+            is_air: true,     //选项卡（空调/灯光）   
+
+            name: '',          //用户名
+            aim_temp: 26,     //目标温度 
+            mode: '制冷',      //模式 
+            speed: 1,         //风速
+            damp_dispel: '',  //除湿模式
+            disable: false,   //开关
+
+            temperature: '',  //实时温度
+            damp: 55,         //实时湿度
+            input_temp: '',
+            modes: [
+               { picked_id: 1, mode_name: '制冷' },
+               { picked_id: 2, mode_name: '供暖' },
+               { picked_id: 3, mode_name: '送风' },
+               { picked_id: 4, mode_name: '智能模式' },
+            ],
+         }
+      },
+      async mounted() {
+         var params = location.search; //获取参数
+         var obj = {}
+         if (params.length > 1) {
+            params = params.substr(1)
+            var arr = params.split('$')
+            for (var i = 0; i < arr.length; i++) {
+               var couple = arr[i].split('=')
+               obj[couple[0]] = couple[1];
+            }
+         }
+         this.name = obj.name
+         console.log('拿到名字', this.name);
+         var success_ac = fetch(`http://aihouse.club/node/ac/get_instruct`, {//获取上一次退出时空调指令
+            headers: new Headers({ 'Content-Type': 'application/json' }),
+            body: JSON.stringify(obj),
+            method: 'POST'
+         })
+         success_ac.catch(err => console.log(err))
+         var res = await success_ac
+         res = await res.json()
+         Object.assign(this, res)//复制res的属性到this,重复则覆盖
+         console.log(this.mode)
+
+         setInterval(async function () {//取温度/湿度
+            var promise = fetch(`http://aihouse.club/node/temp_damp?name=${obj.name}`)
+            promise.catch(err => console.log(err))
+            var temp_damp = await promise
+            temp_damp = await temp_damp.json()
+            Object.assign(vm,temp_damp)
+         },1000)
+      },
+      computed: {
+         exceeds_limit() {
+            if (this.input_temp <= 30 && this.input_temp >= 15 || this.input_temp == '')
+               return ''
+            else
+               return '设置的温度超出限制'
+         },
+         wind() {
+            // console.log(this.speed)
+            switch (this.speed * 1) {
+               case 1: return '低风速'; break
+               case 2: return '中风速'; break
+               case 3: return '高风速'; break
+               default: break
+            }
+         },
+         sw_state(){
+            if(this.disable)
+               return 'OFF'
+            else
+               return 'ON '
+         },
+         async air_states() {//向服务端发送命令
+            var { name, aim_temp, mode, speed, damp_dispel, disable } = this
+            var instruct = { name, aim_temp, mode, speed, damp_dispel, disable }
+
+            var success = fetch(`http://aihouse.club/node/ac/set_instruct`, {
+               headers: new Headers({ 'Content-Type': 'application/json' }),
+               body: JSON.stringify(instruct),
+               method: 'POST'
+            })
+            success.catch(err => console.log(err))
+            var res = await success
+            res = await res.json()
+            // console.log(res)
+
+         }
+      },
+
+      methods: {
+         set_temp() {
+            if (this.exceeds_limit != '' || this.input_temp == '') {
+               window.alert('输入温度不恰当！')
+               return
+            }
+            this.aim_temp = this.input_temp
+         },
+         switch_air() {
+            this.is_air = true
+         },
+         switch_light() {
+            this.is_air = false
+         },
+         on_off() {
+            this.disable = !this.disable
+         },
+         dispel() {
+            if (this.damp_dispel == '')
+               this.damp_dispel = '除湿已开启'
+            else
+               this.damp_dispel = ''
+         }
+      }
+   })
+   window.onunload = () => {//离开页面时关闭服务器的温度变化检测
+      console.log('页面没了');
+      fetch(`http://aihouse.club/node/shutdown?name=${vm.name}`, {
+         keepalive: true
+      })
+         .then(res => res.text())
+         .then(res => console.log(res))
+         .catch(err => console.log(err))
+   }
+</script> -->
 
 </html>

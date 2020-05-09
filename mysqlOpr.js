@@ -1,4 +1,4 @@
-module.exports = { update, insert, del, search }
+module.exports = { update, insert, del, search,getConnect }
 function getConnect(pool) {
     //Promise构造方法
     return new Promise((resolve, reject) => {
@@ -21,7 +21,7 @@ function keyVal(user){
     return {keys,vals}
 }
 //增
-function insert(pool, user) {
+function insert(table,pool, user) {
     return new Promise(async (resolve, reject) => {
         try {
             var kv=keyVal(user);
@@ -29,7 +29,7 @@ function insert(pool, user) {
             var hints=new Array(kv.keys.length+1).join('?,')
             hints=hints.substring(0,hints.length-1);
             var connection = await getConnect(pool);
-            connection.query(`insert into webuser 
+            connection.query(`insert into ${table} 
             (${fields}) 
             values(${hints});`,kv.vals,(err, res) => {
                 if (err)
@@ -44,11 +44,11 @@ function insert(pool, user) {
     })
 }
 //删
-function del(pool, user) {
+function del(table,pool, user) {
     return new Promise(async (resolve, reject) => {
         try {
             var connection = await getConnect(pool);
-            connection.query(`delete from webuser where id=${user.id};`, (err, res) => {
+            connection.query(`delete from ${table} where id=${user.id};`, (err, res) => {
                 if (err)
                     reject(err);
                 else
@@ -61,7 +61,7 @@ function del(pool, user) {
     })
 }
 //改
-function update(pool, user,accord) {//池，字段，值
+function update(table,pool, user,accord) {//池，字段，值
     return new Promise(async (resolve, reject) => {
         try {
             var kv=keyVal(user);
@@ -69,7 +69,7 @@ function update(pool, user,accord) {//池，字段，值
             var connection = await getConnect(pool)
             var condition=keyVal(accord)
             kv.vals.push(condition.vals[0])
-            connection.query(`update webuser set 
+            connection.query(`update ${table} set 
             ${couples}
             where ${condition.keys[0]}=?;`,kv.vals, (err, res) => {
                 if (err)
@@ -84,14 +84,14 @@ function update(pool, user,accord) {//池，字段，值
     })
 }
 //查
-function search(pool, user,accord) {
+function search(table,pool, user,accord) {
     return new Promise(async (resolve, reject) => {
         try {
             var fields=keyVal(user).keys.join(',')
             // console.log(fields);
             var connection = await getConnect(pool);
             var condition=keyVal(accord)
-            connection.query(`select ${fields} from webuser 
+            connection.query(`select ${fields} from ${table} 
             where ${condition.keys[0]}=?`,[condition.vals[0]], (err, res) => {
                 if (err) {
                     reject(err);

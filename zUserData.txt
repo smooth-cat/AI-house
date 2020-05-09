@@ -1,0 +1,13 @@
+ //id: 95,
+ // name: 'jjjjj',
+ // password: 'jjjjj',
+ // state: 1,
+ // avater: null,
+  temperature: 30.945523370577828,
+  damp: 26,
+
+  mode: '智能模式',
+  aim_temp: 26,
+  speed: 2,
+  damp_dispel: '1',
+  disable: 1

@@ -13,6 +13,7 @@ body{
 }
 button{
     outline: none;
+    cursor: pointer;
 }
 #big_title{ 
     position: relative;

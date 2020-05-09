@@ -1,27 +1,94 @@
-var { update, insert, del, search }=require('./mysqlOpr')
-var {random}=require('./hanler')
+var { update, insert, del, search, getConnect } = require('./mysqlOpr')
+var { random } = require('./hanler')
 var mysql = require('mysql');
 var pool = mysql.createPool({
-    connectionLimit: 15,
-    host: 'localhost',
-    user: 'root',
-    password: 'mysql',
-    database: 'test'
+   connectionLimit: 30,
+   host: 'localhost',
+   user: 'root',
+   password: 'mysql',
+   database: 'test'
 });
-setInterval(async() => {
-    user = {
-        name: 1,
-        temperature1: 40
-    }
-    var res=await search(pool,user,{state:1})
-    for(var i=0; i<res.length; i++){
-        res[i].temperature1=random(26,35)
-        console.log(res[i],res[i].name);
-        var res2=await update(pool,{temperature1:res[i].temperature1},{name:res[i].name})
-    }
 
-    
-},1500);
+setInterval(async () => {
+   user = {
+      name: '',
+      temperature: 40
+   }
+   getConnect(pool).then(con => {
+      con.query(`select * from webuser,ac where webuser.name=ac.name 
+         and state=1`, async (err, res) => {
+         if (err)
+            console.log(err)
+         else {
+            for (var i = 0; i < res.length; i++) {
+
+               //分析每一个res 的 diable 
+               // mode -> {制冷 供暖 送风 智能模式 }
+               //制冷：
+               //temp高于aim->给一个降温变量  temp低于aim->无动作
+               //供暖：
+               //temp低于aim->给一个升温变量  temp高于aim->无动作
+               //送风：
+               //无动作
+               //智能模式：
+               //目标温度26 目标湿度50%
+               var { name, aim_temp, mode, speed, damp_dispel, disable, temperature, damp } = res[i]
+               var val=1
+               switch(speed){
+                  case 1:val=0.5;break;
+                  case 2:val=1;break;
+                  case 3:val=1.5;break;
+                  default:break;
+               }
+               temperature += random(-0.5, +0.5)
+               damp+=random(-0.5,+0.5)
+               if (!disable) {
+                  switch (mode) {
+                     case '制冷':
+                        if (temperature > aim_temp) {
+                           temperature -= val
+                        }
+                        break;
+
+                     case '供暖':
+                        if (temperature < aim_temp)
+                           temperature += val
+                        break;
+
+                     case '送风':
+
+
+                        break;
+
+                     case '智能模式':
+                        if (temperature > 26)
+                           temperature -= 1
+                        else if (temperature < 26)
+                           temperature += 1
+                        break;
+                     default: break;
+                  }
+                  if(damp_dispel=='除湿已开启'||mode=='智能模式'){
+                     if(damp>50)
+                        damp--
+                     if(damp<50)
+                        damp++
+                  }
+               }
+
+               // res[i].temperature=temperature
+               // res[i].damp=damp
+                  console.log(res[i]);
+               var res2 = await update('webuser', pool, { temperature,damp }, { name: res[i].name })
+            }
+         }
+         con.release()
+      })
+   })
+
+
+
+}, 1500);
 
 
 
