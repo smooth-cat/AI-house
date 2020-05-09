@@ -131,9 +131,24 @@ body {
   justify-content: space-between;
 }
 .temp_damp .map {
+  position: relative;
   width: 100%;
   height: 300px;
-  border: 1px solid whitesmoke;
+  padding: 20px 0 0 20px;
+  border-radius: 10px;
+  background: rgba(71, 61, 61, 0.782);
+}
+.temp_damp .map canvas {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1;
+}
+.temp_damp .map .tt {
+  position: absolute;
+  right: 32px;
+  bottom: 37px;
+  font-size: 22px;
 }
 .air_light {
   margin-left: 50px;
@@ -213,18 +228,26 @@ body {
   align-items: center;
 }
 .air_light .air .opr .items {
+  margin: 10px 0;
   position: relative;
   width: 287px;
 }
 .air_light .air .opr .items .on_off {
   position: absolute;
-  right: 0;
-  top: 30px;
+  right: 30px;
+  top: 32px;
 }
 .air_light .air .opr .items .remove_damp {
   position: absolute;
-  right: 0;
-  top: 70px;
+  right: 30px;
+  top: 93px;
+}
+.air_light .air .opr #wind_s {
+  display: flex;
+  align-items: center;
+}
+.air_light .air .opr .radio_con {
+  margin: 8px 0;
 }
 .air_light .light {
   height: 100%;

@@ -35,13 +35,13 @@ setInterval(async () => {
                var { name, aim_temp, mode, speed, damp_dispel, disable, temperature, damp } = res[i]
                var val=1
                switch(speed){
-                  case 1:val=0.5;break;
+                  case 1:val=0.65;break;
                   case 2:val=1;break;
-                  case 3:val=1.5;break;
+                  case 3:val=1.3;break;
                   default:break;
                }
-               temperature += random(-0.5, +0.5)
-               damp+=random(-0.5,+0.5)
+               temperature += random(-0.65, +0.65)
+               damp+=random(-0.65,+0.65)
                if (!disable) {
                   switch (mode) {
                      case '制冷':
@@ -88,7 +88,7 @@ setInterval(async () => {
 
 
 
-}, 1500);
+}, 500);
 
 
 

@@ -91,10 +91,24 @@ body{
    align-items: center;
    justify-content: space-between;
    .map{
+      position: relative;
       width: 100%;
       height: 300px;
-      // background: #ff0;
-      border: 1px solid whitesmoke;
+      padding: 20px 0 0 20px;
+      border-radius: 10px;
+      background: rgba(71, 61, 61, 0.782);
+      // border: 1px solid whitesmoke;
+      canvas{
+         position: absolute;
+         left: 0;top: 0;
+         z-index: 1;
+      }
+      .tt{
+         position: absolute;
+         right: 32px;
+         bottom: 37px;
+         font-size: 22px;
+      }
    }
    
 }
@@ -160,20 +174,24 @@ body{
          // color: whitesmoke;
          display: flex; flex-direction: column; align-items: center;
          .items{
+            margin: 10px 0;
             position: relative;
             width: 287px;
             .on_off{
                position: absolute;
-               right: 0;
-               top: 30px;
+               right: 30px;
+               top: 32px;
             }
             .remove_damp{
                position: absolute;
-               right: 0;
-               top: 70px;
+               right: 30px;
+               top: 93px;
             }
          }
-
+         #wind_s{display: flex; align-items: center;}
+         .radio_con{
+            margin: 8px 0;
+         }
 
       }
    }
