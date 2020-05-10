@@ -6,20 +6,62 @@
 ### 1.下载此项目
    下载此项目后，解压至F:/Back,
    将文件夹名由 AI-house-master 改为 node-express
+   **找到node-express/public/pages文件夹中的 index.js 和 login.js**
+   **分别打开通过Ctrl+H 将所有 aihouse.club 替换为 127.0.0.1**
 
 ### 2.安装、配置 nginx
 1. 下载nginx: http://nginx.org/en/download.html
    注意下载**和自己电脑系统对应**的nginx 下载后解压至F:/Back
-   ![image](https://github.com/smooth-cat/AI-house/blob/master/public/imgs/nginx.png) 
-
+   <img width="550px" src="https://github.com/smooth-cat/AI-house/blob/master/public/imgs/nginx.png">
 2. 配置: 打开解压文件夹中的conf目录下的nginx.conf文件
-   找到 
+   找到
 ```
-   http{
-      server{
-         location/{
+        location / {
+            root   html;
+            index  index.html index.htm;
+        }
+```
+   将其替换为以下代码即可
+```
+        #静态资源 路径匹配
+        location ~^/imgs {# 请求路径以/imgs开头的
+            #根
+            root F:/Back/node-express/public; 
+        }
+        location / { # 请求路径包含“/”的
+            root   F:/Back/node-express/public/pages;
+            index  /login.html; #凡是以/结尾的请求都会访问
+        }
+        #动态请求
+        location ~^(/node) {# 请求路径以node开头的
+            proxy_pass http://127.0.0.1:9000;
+        }
+```
+3.启动：在nginx.**exe**的目录下启动cmd 输入:start nginx.exe
+  重启：nginx -s reload
+  停止：nginx -s stop
+#### 至此在浏览器输入127.0.0.1就可以看到登录界面了，***如果失败请重启电脑再试***
+  
+### 3.安装MySQL
+1. 下载mysql：https://dev.mysql.com/get/Downloads/MySQLInstaller/mysql-installer-community-5.7.30.0.msi
+2. 安装数据库时用户名请填root  密码填mysql  
+   如果要定义其他账号密码，就把app.js 和 home.js 中的**mysql.createPool（）函数**做对应修改 
+3. 安装教程请**务必**参考：https://www.bilibili.com/video/BV1GW411g7pF?from=search&seid=16379453420756899056
+4. 使用MySQL,
 
-         }
-      }
-   } 
+   登录：打开powershell(win+R 输入powershell)，输入以下内容,注意密码和-p是贴在一起的
+```
+      mysql -u 用户名 -p密码;  
+```      
+   接着需要创建数据，代码必须和以下一模一样，不然node程序无法操作数据库
+   创建数据库和创建表：
+```
+      //创建一个名为test的数据库
+      create database test;
+      //选择test数据库进行操作
+      use test;
+      //创建webuser,ac,lights三个表
+      create table webuser(
+           
+      );
 ```
