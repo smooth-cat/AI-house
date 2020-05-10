@@ -47,7 +47,7 @@
 1. 下载mysql：https://dev.mysql.com/get/Downloads/MySQLInstaller/mysql-installer-community-5.7.30.0.msi
 2. 安装数据库时用户名请填root  密码填mysql  
    **如果安装时不用这个账号密码**，就把app.js 和 home.js 中的 mysql.createPool() 函数做对应修改 
-3. 安装教程请**务必**参考：https://www.bilibili.com/video/BV1GW411g7pF?from=search&seid=16379453420756899056  
+3. **安装教程请务必**参考：https://www.bilibili.com/video/BV1GW411g7pF?from=search&seid=16379453420756899056  
    如果有教程之外的选项点确定就行了
 4. 使用MySQL,
 
