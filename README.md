@@ -37,7 +37,7 @@
             proxy_pass http://127.0.0.1:9000;
         }
 ```
-3.启动：在nginx.**exe**的目录下启动cmd 输入:start nginx.exe
+3.启动：在nginx.**exe**的目录下启动cmd 输入: start nginx.exe
 
       重启：nginx -s reload
       停止：nginx -s stop
@@ -47,16 +47,16 @@
 1. 下载mysql：https://dev.mysql.com/get/Downloads/MySQLInstaller/mysql-installer-community-5.7.30.0.msi
 2. 安装数据库时用户名请填root  密码填mysql  
    **如果安装时不用这个账号密码**，就把app.js 和 home.js 中的 mysql.createPool() 函数做对应修改 
-3. 安装教程请**务必**参考：https://www.bilibili.com/video/BV1GW411g7pF?from=search&seid=16379453420756899056  
+3. **安装教程请务必**参考：https://www.bilibili.com/video/BV1GW411g7pF?from=search&seid=16379453420756899056  
    如果有教程之外的选项点确定就行了
 4. 使用MySQL,
 
-   登录：打开powershell(win+R 输入powershell)，输入以下内容,注意密码和-p是贴在一起的
+   登录：打开 powershell (win+R 输入powershell)，输入以下内容,**注意-p和密码是贴在一起的，用你安装时的账号密码**
 ```
       mysql -u 用户名 -p密码;  
 ```      
-  接着需要创建数据，代码必须和以下一模一样，不然node程序无法操作数据库  
-  创建数据库和创建表：
+  接着需要创建 数据库和表，**代码必须和以下一模一样**，不然node程序无法操作数据库  
+  创建 数据库和创建表：
 ```
       //创建一个名为test的数据库
       create database test;
@@ -90,13 +90,12 @@
            bedroom_l int
       );
 ```
-
 #### 至此数据库的表就准备完毕了
 
 ### 4.安装node，启动 app.js 和 home.js
    这一步就so easy了，下载长期支持版node：https://nodejs.org/zh-cn/   
-   下载完后，在node-express文件夹下启动两个cmd   
-   如果有vscode 可以按 ctrl+~ 打开终端，ctrl+shift+5 分裂出两个终端 ，其他的编辑器我没用过不知道~  
+   下载完后，在node-express目录下启动两个cmd   
+   如果有vscode 可以打开该文件夹，按 ctrl+~ 打开终端，ctrl+shift+5 分裂出两个终端 ，其他的编辑器我没用过不知道~  
    运行： 一个 cmd或终端 输入 **node app**  另一个输入 **node home**  
    停止运行: ctrl+c 不行就多按几下  
 ### node服务器就启动完毕了 大功告成~ 在浏览器 127.0.0.1 就可以进行业务操作了~
