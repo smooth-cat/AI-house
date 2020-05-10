@@ -51,7 +51,7 @@
    如果有教程之外的选项点确定就行了
 4. 使用MySQL,
 
-   登录：打开powershell(win+R 输入powershell)，输入以下内容,注意密码和-p是贴在一起的
+   登录：打开powershell(win+R 输入powershell)，输入以下内容,**注意-p和密码是贴在一起的**
 ```
       mysql -u 用户名 -p密码;  
 ```      
@@ -90,7 +90,6 @@
            bedroom_l int
       );
 ```
-
 #### 至此数据库的表就准备完毕了
 
 ### 4.安装node，启动 app.js 和 home.js
