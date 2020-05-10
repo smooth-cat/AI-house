@@ -94,8 +94,8 @@
 
 ### 4.安装node，启动 app.js 和 home.js
    这一步就so easy了，下载长期支持版node：https://nodejs.org/zh-cn/   
-   下载完后，在node-express文件夹下启动两个cmd   
-   如果有vscode 可以按 ctrl+~ 打开终端，ctrl+shift+5 分裂出两个终端 ，其他的编辑器我没用过不知道~  
+   下载完后，在node-express目录下启动两个cmd   
+   如果有vscode 可以打开该文件夹，按 ctrl+~ 打开终端，ctrl+shift+5 分裂出两个终端 ，其他的编辑器我没用过不知道~  
    运行： 一个 cmd或终端 输入 **node app**  另一个输入 **node home**  
    停止运行: ctrl+c 不行就多按几下  
 ### node服务器就启动完毕了 大功告成~ 在浏览器 127.0.0.1 就可以进行业务操作了~
