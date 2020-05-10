@@ -48,9 +48,9 @@
 2. 安装数据库时用户名请填root  密码填mysql  
    **如果安装时不用这个账号密码**，就把app.js 和 home.js 中的 mysql.createPool() 函数做对应修改 
 3. **安装教程请务必**参考：https://www.bilibili.com/video/BV1GW411g7pF?from=search&seid=16379453420756899056  
-   如果有教程之外的选项点确定就行了
+   如果有教程之外的选项点确定就行了,无需安装MySQL的可视化程序
 4. 使用MySQL,
-
+   配置环境变量:找到MySQL的bin目录下，将bin目录的路径设为环境变量
    登录：打开 powershell (win+R 输入powershell)，输入以下内容,**注意-p和密码是贴在一起的，用你安装时的账号密码**
 ```
       mysql -u 用户名 -p密码;  
