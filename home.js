@@ -8,7 +8,7 @@ var pool = mysql.createPool({
    password: 'mysql',
    database: 'test'
 });
-
+console.log('温度模拟已开启')
 setInterval(async () => {
    user = {
       name: '',
