@@ -4,7 +4,7 @@
 ## 如何启动这个项目
 
 ### 1.下载此项目
-   下载此项目后，解压至F:/Back,
+   下载此项目后，**解压至F:/Back**,
    将文件夹名由 AI-house-master 改为 node-express，
    **找到node-express/public/pages文件夹中的 index.js 和 login.js**
    **分别打开，通过Ctrl+H 将所有 aihouse.club 替换为 127.0.0.1**
