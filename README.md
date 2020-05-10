@@ -5,12 +5,12 @@
 
 ### 1.下载此项目
    下载此项目后，解压至F:/Back,
-   将文件夹名由AI-house-master 改为 node-express
+   将文件夹名由 AI-house-master 改为 node-express
 
 ### 2.安装、配置 nginx
 1. 下载nginx: http://nginx.org/en/download.html
    注意下载**和自己电脑系统对应**的nginx 下载后解压至F:/Back
-   
+   ![image](https://github.com/smooth-cat/AI-house/blob/master/public/imgs/nginx.png) 
 
 2. 配置: 打开解压文件夹中的conf目录下的nginx.conf文件
    找到 
