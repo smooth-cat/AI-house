@@ -37,7 +37,7 @@
             proxy_pass http://127.0.0.1:9000;
         }
 ```
-3.启动：在nginx.**exe**的目录下启动cmd 输入:start nginx.exe
+3.启动：在nginx.**exe**的目录下启动cmd 输入: start nginx.exe
 
       重启：nginx -s reload
       停止：nginx -s stop
@@ -51,7 +51,7 @@
    如果有教程之外的选项点确定就行了
 4. 使用MySQL,
 
-   登录：打开powershell(win+R 输入powershell)，输入以下内容,**注意-p和密码是贴在一起的**
+   登录：打开 powershell (win+R 输入powershell)，输入以下内容,**注意-p和密码是贴在一起的**
 ```
       mysql -u 用户名 -p密码;  
 ```      
