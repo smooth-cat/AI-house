@@ -59,7 +59,7 @@
   创建 数据库和创建表：
 ```
       //创建一个名为test的数据库
-      create database test;
+      create database test character set utf8;
       
       //选择test数据库进行操作
       use test;
