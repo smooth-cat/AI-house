@@ -51,7 +51,7 @@
    如果有教程之外的选项点确定就行了
 4. 使用MySQL,
 
-   登录：打开 powershell (win+R 输入powershell)，输入以下内容,**注意-p和密码是贴在一起的**
+   登录：打开 powershell (win+R 输入powershell)，输入以下内容,**注意-p和密码是贴在一起的，用你安装时的账号密码**
 ```
       mysql -u 用户名 -p密码;  
 ```      
