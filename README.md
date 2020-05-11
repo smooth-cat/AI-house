@@ -44,19 +44,17 @@
 #### 至此在浏览器输入127.0.0.1就可以看到登录界面了，***如果失败提示404请重启电脑再试***
   
 ### 3.安装MySQL
-1. 下载mysql：https://dev.mysql.com/get/Downloads/MySQLInstaller/mysql-installer-community-5.7.30.0.msi
+1. 下载mysql：https://dev.mysql.com/get/Downloads/MySQLInstaller/mysql-installer-community-8.0.20.0.msi
 2. 安装数据库时用户名请填root  密码填mysql  
    **如果安装时不用这个账号密码**，就把app.js 和 home.js 中的 mysql.createPool() 函数做对应修改 
 3. **安装教程请务必**参考：https://www.bilibili.com/video/BV1GW411g7pF?from=search&seid=16379453420756899056  
    如果有教程之外的选项点确定就行了,无需安装MySQL的可视化程序
 4. 使用MySQL,
-   配置环境变量:找到MySQL的bin目录下，将bin目录的路径设为环境变量
-   登录：打开 powershell (win+R 输入powershell)，输入以下内容,**注意-p和密码是贴在一起的，用你安装时的账号密码**
-```
-      mysql -u 用户名 -p密码;  
-```      
-  接着需要创建 数据库和表，**代码必须和以下一模一样**，不然node程序无法操作数据库  
-  创建 数据库和创建表：
+   
+  (1)登录：打开 开始菜单找到MySQL文件夹，打开MySQL 8.0 Command Line Client，输入密码即可登录  
+     
+  (2)接着需要创建 数据库和表，**代码必须和以下一模一样**，不然node程序无法操作数据库  
+     创建 数据库和创建表：
 ```
       //创建一个名为test的数据库
       create database test character set utf8;
