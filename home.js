@@ -40,8 +40,21 @@ setInterval(async () => {
                   case 3:val=1.3;break;
                   default:break;
                }
-               temperature += random(-0.65, +0.65)
-               damp+=random(-0.65,+0.65)
+               if(temperature>=7&&temperature<=35){
+                  temperature+=random(-0.65,+0.65)
+               }else if(temperature>35){
+                  temperature-=0.65
+               }else{
+                  temperature+=0.65
+               }
+
+               if(damp>=30&&damp<=70){
+                  damp+=random(-0.65,+0.65)
+               }else if(damp>70){
+                  damp-=0.65
+               }else{
+                  damp+=0.65
+               }
                if (!disable) {
                   switch (mode) {
                      case '制冷':

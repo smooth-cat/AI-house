@@ -4,19 +4,6 @@ function random(min, max) {
    return Math.random()*(max - min) + min;
 }
 
-async function getTempDamp(pool, name) {//获取温度处理
-   var res = await search('webuser', pool, {temperature:0,damp:0}, { name })
-   // console.log('拿到温度湿度', res,'名字',name)
-   return res[0]
-}
-
-async function shutdown(pool, user) {//退出处理
-   console.log('进入shutdow');
-   user.state = 0;
-   var res = await update('webuser', pool, user, { name: user.name })
-   return 'ok';
-}
-
 async function login(pool, user) {//登录处理
    var search_val = await search('webuser', pool, user, { name: user.name })
    if (search_val.length == 0)
@@ -66,6 +53,19 @@ async function register(pool, user) {//注册处理
 
 }
 
+async function shutdown(pool, user) {//退出处理
+   console.log('进入shutdow');
+   user.state = 0;
+   await update('webuser', pool, user, { name: user.name })
+   return 'ok';
+}
+
+async function getTempDamp(pool, name) {//获取温度/湿度
+   var res = await search('webuser', pool, {temperature:0,damp:0}, { name })
+   // console.log('拿到温度湿度', res,'名字',name)
+   return res[0]
+}
+
 async function get_instruct(pool,name){//获取数据库中空调指令/和灯 
    var ac={aim_temp:0,mode:'',speed:0,damp_dispel:'',disable:false}
    var lights={dinning_l:0,bath_l:0,sitting_l:0,bedroom_l:0}
@@ -83,7 +83,7 @@ async function get_instruct(pool,name){//获取数据库中空调指令/和灯
    return res[0]
 }
 
-async function set_instruct(pool,ac){//设置空调指令
+async function set_instruct(pool,ac){//设置空调状态
    var {name,...instruct}=ac
    var promise=update('ac',pool,instruct,{name})
    promise.catch(err=>console.log(err))
@@ -91,7 +91,7 @@ async function set_instruct(pool,ac){//设置空调指令
    return ''
 }
 
-async function set_lights(pool,lights){
+async function set_lights(pool,lights){//设置灯状态
    var {name,...instruct}=lights
    var promise=update('lights',pool,instruct,{name})
    promise.catch(err=>console.log(err))

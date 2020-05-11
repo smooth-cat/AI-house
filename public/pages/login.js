@@ -54,7 +54,7 @@ async function onClick(){
         window.alert('两次密码输入不相同！')
         return;
     }
-
+    //请求登录/注册
     var success=fetch(`http://aihouse.club/node/user/${id.btn.value}`,{
         headers:new Headers({'Content-Type':'application/json'}) ,
         body:JSON.stringify(user),
@@ -63,7 +63,7 @@ async function onClick(){
     success.catch(err=>{console.log(err)})
     var res=await success;
     res=await res.json();
-    var {msg,mark}=res;
+    var {msg,mark}=res;//去除返回信息
     window.alert(msg);
     if(mark){
         window.location.href='./index.html?name='+id.name.value;

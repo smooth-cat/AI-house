@@ -45,9 +45,9 @@ var vm = new Vue({
             obj[couple[0]] = couple[1];
          }
       }
-
       this.name = obj.name || 'JJLin'
       console.log('拿到名字', this.name);
+
       var success_ac = fetch(`http://aihouse.club/node/ac/get_instruct`, {//获取上一次退出时空调指令/灯光
          headers: new Headers({ 'Content-Type': 'application/json' }),
          body: JSON.stringify(obj),
@@ -56,6 +56,7 @@ var vm = new Vue({
       success_ac.catch(err => console.log(err))
       var res = await success_ac
       res = await res.json()
+
       var { dinning_l, bath_l, sitting_l, bedroom_l, disable, ...air_con } = res
       this.lights[0].s = dinning_l
       this.lights[1].s = bath_l
@@ -80,7 +81,7 @@ var vm = new Vue({
          var temp_damp = await promise
          temp_damp = await temp_damp.json()
          var { temperature, damp } = temp_damp
-         temperature = temperature.toFixed(2)
+         temperature = temperature.toFixed(2)//将温度精确到小数点后两位
          damp = damp.toFixed(2)
          var next1=draw(temperature,5,j[0],times1,x1)
          times1=next1.times;x1=next1.x
@@ -125,7 +126,7 @@ var vm = new Vue({
          })
          success.catch(err => console.log(err))
          await success
-         console.log('指令发送成功')
+         console.log('空调指令发送成功')
       },
       light_states() {//向服务器发送灯光控制指令
          var dinning_l = this.lights[0].s
@@ -142,37 +143,36 @@ var vm = new Vue({
                method: 'POST'
             })
             success.catch(err => console.log(err))
-            var res = await success
-            res = await res.text()
-            console.log(res)
+            await success
+            console.log('灯光指令发送成功')
          }, 300)
       },
    },
 
    methods: {
-      show_slide() {
+      show_slide() {//展示侧边栏
          if (this.slide_w == 0)
             this.slide_w = 200
          else
             this.slide_w = 0
       },
-      set_temp() {
+      set_temp() {//确认温度按钮触发
          if (this.exceeds_limit != '' || this.input_temp == '') {
             window.alert('输入温度不恰当！')
             return
          }
          this.aim_temp = this.input_temp
       },
-      switch_air() {
+      switch_air() {//选项卡切换至空调
          this.is_air = true
       },
-      switch_light() {
+      switch_light() {//选项卡切换至灯光
          this.is_air = false
       },
-      on_off() {
+      on_off() {//空调开关
          this.disable = !this.disable
       },
-      dispel() {
+      dispel() {//除湿开关
          if (this.damp_dispel == '')
             this.damp_dispel = '除湿已开启'
          else
@@ -180,6 +180,8 @@ var vm = new Vue({
       }
    }
 })
+
+//绘制温度/湿度折线的 变量/函数
 function init_axis(j) {//canva初始化坐标轴
    j.strokeStyle = '#ffffff'
    j.lineWidth = 1.5
