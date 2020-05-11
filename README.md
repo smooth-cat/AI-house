@@ -57,7 +57,7 @@
      创建 数据库和创建表：
 ```
       //创建一个名为test的数据库
-      create database test character set utf8;
+      create database test;
       
       //选择test数据库进行操作
       use test;
@@ -104,4 +104,4 @@ use mysql;
 ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'mysql';
 flush privileges;
 ```
-#### 具体原因是：mysql版本太高，但是我这里给的mysql下载链接是低版本的应该问题不大
+#### 具体原因是：mysql版本太高
