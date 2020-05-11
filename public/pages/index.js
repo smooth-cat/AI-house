@@ -1,6 +1,7 @@
 var TIMEOUT = -1
 var vm = new Vue({
    el: '#app',
+   /*-------------------- 数据绑定 ----------------------*/
    data() {
       return {
          slide_w: 0,
@@ -34,6 +35,7 @@ var vm = new Vue({
          slide_items: ['About', 'Help', 'Setting', 'Join']
       }
    },
+   /*---------------- 页面生成时触发 -----------------*/
    async mounted() {
       var params = location.search; //获取跳转参数
       var obj = {}
@@ -47,17 +49,13 @@ var vm = new Vue({
       }
       this.name = obj.name || 'JJLin'
       console.log('拿到名字', this.name);
-
-      var success_ac = fetch(`http://aihouse.club/node/ac/get_instruct`, {//获取上一次退出时空调指令/灯光
-         headers: new Headers({ 'Content-Type': 'application/json' }),
-         body: JSON.stringify(obj),
-         method: 'POST'
-      })
+      //获取空调/灯的设置
+      var success_ac = fetch(`http://aihouse.club/node/ac/get_instruct?name=${this.name}`)
       success_ac.catch(err => console.log(err))
       var res = await success_ac
       res = await res.json()
 
-      var { dinning_l, bath_l, sitting_l, bedroom_l, disable, ...air_con } = res
+      var { dinning_l, bath_l, sitting_l, bedroom_l, disable, ...air_con } = res//改变灯光/空调设置
       this.lights[0].s = dinning_l
       this.lights[1].s = bath_l
       this.lights2[0].s = sitting_l
@@ -67,10 +65,10 @@ var vm = new Vue({
       this.disable = disable
       console.log(this.mode)
 
-      var cans = document.getElementsByTagName('canvas')
+      var cans = document.getElementsByTagName('canvas')//初始化坐标系
       cans = Array.from(cans)
       var j = []
-      cans.forEach((v, i) => {//初始化坐标系
+      cans.forEach((v) => {
          j.push(v.getContext('2d'))
          init_axis(v.getContext('2d'))
       })
@@ -81,18 +79,19 @@ var vm = new Vue({
          var temp_damp = await promise
          temp_damp = await temp_damp.json()
          var { temperature, damp } = temp_damp
-         temperature = temperature.toFixed(2)//将温度精确到小数点后两位
-         damp = damp.toFixed(2)
-         var next1=draw(temperature,5,j[0],times1,x1)
+
+         var next1=draw(temperature,5,j[0],times1,x1)//绘制折线
          times1=next1.times;x1=next1.x
          var next2=draw(damp,2,j[1],times2,x2)
          times2=next2.times;x2=next2.x
-         Object.assign(vm, { temperature, damp })
+
+         Object.assign(vm, { temperature, damp })//改变ui
       }, 1000)
 
 
 
    },
+   /*------------------ 响应值变化方法 ------------------*/
    computed: {
       exceeds_limit() {//提示
          if (this.input_temp <= 30 && this.input_temp >= 15 || this.input_temp == '')
@@ -117,11 +116,10 @@ var vm = new Vue({
       },
       async air_states() {//向服务端发送空调命令
          var { name, aim_temp, mode, speed, damp_dispel, disable } = this
-         var instruct = { name, aim_temp, mode, speed, damp_dispel, disable }
 
          var success = fetch(`http://aihouse.club/node/ac/set_instruct`, {
             headers: new Headers({ 'Content-Type': 'application/json' }),
-            body: JSON.stringify(instruct),
+            body: JSON.stringify({ name, aim_temp, mode, speed, damp_dispel, disable }),
             method: 'POST'
          })
          success.catch(err => console.log(err))
@@ -134,12 +132,12 @@ var vm = new Vue({
          var sitting_l = this.lights2[0].s
          var bedroom_l = this.lights2[1].s
          var { name } = this
-         var set_light = { name, dinning_l, bath_l, sitting_l, bedroom_l }
+
          window.clearTimeout(TIMEOUT)
          TIMEOUT = window.setTimeout(async () => {//防止滑动多次发送请求
             var success = fetch(`http://aihouse.club/node/set_light`, {
                headers: new Headers({ 'Content-Type': 'application/json' }),
-               body: JSON.stringify(set_light),
+               body: JSON.stringify({ name, dinning_l, bath_l, sitting_l, bedroom_l }),
                method: 'POST'
             })
             success.catch(err => console.log(err))
@@ -148,7 +146,7 @@ var vm = new Vue({
          }, 300)
       },
    },
-
+   /*------------------ 点击方法 ------------------*/
    methods: {
       show_slide() {//展示侧边栏
          if (this.slide_w == 0)
@@ -181,7 +179,7 @@ var vm = new Vue({
    }
 })
 
-//绘制温度/湿度折线的 变量/函数
+/*-------- 绘制温度/湿度折线的 变量/函数 --------*/
 function init_axis(j) {//canva初始化坐标轴
    j.strokeStyle = '#ffffff'
    j.lineWidth = 1.5
@@ -234,9 +232,9 @@ function draw (rd, multiple, j,times,x) {//绘制折线
 
 
 
+/*--------------- 离开页面 ---------------*/
 
-
-window.onunload = () => {//离开页面时关闭服务器的温度变化检测
+window.onunload = () => {
    console.log('页面没了');
    fetch(`http://aihouse.club/node/shutdown?name=${vm.name}`, {
       keepalive: true

@@ -68,7 +68,7 @@
             <!-- 按钮界面 -->
             <div class="opr">
                <div class="items">Tips:{{exceeds_limit}}</div>
-               <div class="items">
+               <div class="items" id="input_temp">
                   输入温度 <input id="num" type="number" placeholder="请输入15℃~30℃" :disabled="disable"
                      v-model.number="input_temp">
                   <button @click="set_temp" :disabled="disable">确认温度</button>

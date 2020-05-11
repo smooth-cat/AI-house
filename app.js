@@ -21,10 +21,10 @@ app.post('/node/user/register', async (req, res) => {//响应注册请求
    res.json(answer )
 })
 
-app.get('/node/shutdown', (req, res) => {//响应用户退出请求
+app.get('/node/shutdown',async (req, res) => {//响应退出请求
    console.log('执行到shutdown');
-   var result = shutdown(pool, req.query);
-   res.send(result);
+   await shutdown(pool, req.query.name);
+   res.send('ok');
 })
 
 app.get('/node/temp_damp', async (req, res) => {//响应实时温度/湿度请求
@@ -32,26 +32,21 @@ app.get('/node/temp_damp', async (req, res) => {//响应实时温度/湿度请�
    res.json(temp_damp)
 })
 
-app.post('/node/ac/get_instruct',async (req,res)=>{//获取数据库中空调指令和灯
-   var promise= get_instruct(pool,req.body.name)
-   promise.catch(err=>console.log(err))
-   var instruct=await promise
+app.get('/node/ac/get_instruct',async (req,res)=>{//获取数据库中空调指令和灯
+   var instruct=await get_instruct(pool,req.query.name)
+   console.log('发送初始设置:', instruct)
    res.json(instruct)
 })
 
 app.post('/node/ac/set_instruct',async (req,res)=>{//设置空调状态
-   console.log('接到空调设置:',req.body)
-   var promise=set_instruct(pool,req.body)
-   promise.catch(err=>console.log(err))
-   await promise
+   // console.log('接到空调设置:',req.body)
+   await set_instruct(pool,req.body)
    res.send('')
 })
 
 app.post('/node/set_light',async(req,res)=>{//设置灯状态
    console.log('接到灯光设置:',req.body)
-   var promise=set_lights(pool,req.body)
-   promise.catch(err=>console.log(err))
-   await promise
+   await set_lights(pool,req.body)
    res.send('')
 })
 
