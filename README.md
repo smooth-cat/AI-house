@@ -100,10 +100,5 @@
    如果有vscode 可以打开该文件夹，按 ctrl+~ 打开终端，ctrl+shift+5 分裂出两个终端 ，其他的编辑器我没用过不知道~  
    运行： 一个 cmd或终端 输入 **node app**  另一个输入 **node home**  
    停止运行: ctrl+c 不行就多按几下  
-### node服务器就启动完毕了 大功告成~ 在浏览器 127.0.0.1 就可以进行业务操作了~
+#### node服务器就启动完毕了 大功告成~ 在浏览器 127.0.0.1 就可以进行业务操作了~
 ### 提示：可以进行业务操作的条件就3个：nginx启动，app.js和home.js启动，数据库表已经建好(数据库可以不用登录只要表建好就行了)
-#### 如果node出现 "Client does not support authentication protocol requested by server;"异常 请登录mysql输入以下代码,
-```
-
-```
-#### 具体原因是：mysql版本太高
