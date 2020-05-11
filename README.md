@@ -87,6 +87,10 @@
            sitting_l int,
            bedroom_l int
       );
+      //使用旧版身份验证方式(node只能以旧方式连接MySQL,所以添加以下设置)
+      use mysql;
+      ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'mysql';
+      flush privileges;
 ```
 #### 至此数据库的表就准备完毕了
 
@@ -100,8 +104,6 @@
 ### 提示：可以进行业务操作的条件就3个：nginx启动，app.js和home.js启动，数据库表已经建好(数据库可以不用登录只要表建好就行了)
 #### 如果node出现 "Client does not support authentication protocol requested by server;"异常 请登录mysql输入以下代码,
 ```
-use mysql;
-ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'mysql';
-flush privileges;
+
 ```
 #### 具体原因是：mysql版本太高
