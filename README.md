@@ -103,7 +103,7 @@
 #### 如果node出现 "Client does not support authentication protocol requested by server;"异常 请登录mysql输入以下代码,
 ```
 use mysql;
-ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'mysql';
 flush privileges;
 ```
 #### 具体原因是：mysql版本太高，但是我这里给的mysql下载链接是低版本的应该问题不大
