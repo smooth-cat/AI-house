@@ -246,6 +246,10 @@ body {
   right: 30px;
   top: 93px;
 }
+.air_light .air .opr .items #tips {
+  font-size: 15px;
+  font-family: Arial, Helvetica, sans-serif;
+}
 .air_light .air .opr #wind_s {
   display: flex;
   align-items: center;

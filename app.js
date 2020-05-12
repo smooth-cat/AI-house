@@ -24,7 +24,7 @@ app.post('/node/user/register', async (req, res) => {//响应注册请求
 app.get('/node/shutdown',async (req, res) => {//响应退出请求
    console.log('执行到shutdown');
    await shutdown(pool, req.query.name);
-   res.send('ok');
+   res.send('已退出');
 })
 
 app.get('/node/temp_damp', async (req, res) => {//响应实时温度/湿度请求
@@ -41,13 +41,13 @@ app.get('/node/ac/get_instruct',async (req,res)=>{//获取数据库中空调指�
 app.post('/node/ac/set_instruct',async (req,res)=>{//设置空调状态
    // console.log('接到空调设置:',req.body)
    await set_instruct(pool,req.body)
-   res.send('')
+   res.send('空调设置成功')
 })
 
 app.post('/node/set_light',async(req,res)=>{//设置灯状态
    console.log('接到灯光设置:',req.body)
    await set_lights(pool,req.body)
-   res.send('')
+   res.send('灯光设置成功')
 })
 
 

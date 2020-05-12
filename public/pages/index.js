@@ -5,7 +5,7 @@ var vm = new Vue({
    data() {
       return {
          slide_w: 0,
-
+         
          is_air: true,     //选项卡（空调/灯光）   
 
          name: '',          //用户名
@@ -32,7 +32,7 @@ var vm = new Vue({
             { s: 0, id: 'sitting_l', name: '客厅', bg: '../imgs/kt.jpg', },
             { s: 0, id: 'bedroom_l', name: '卧室', bg: '../imgs/ws.jpg', }
          ],
-         slide_items: ['About', 'Help', 'Setting', 'Join']
+         slide_items: ['About', 'Help', 'Setting', 'Join'],
       }
    },
    /*---------------- 页面生成时触发 -----------------*/
@@ -60,6 +60,7 @@ var vm = new Vue({
       this.lights[1].s = bath_l
       this.lights2[0].s = sitting_l
       this.lights2[1].s = bedroom_l
+      console.log(air_con)
       Object.assign(this, air_con)//复制air_con的属性到this,重复则覆盖
       disable = !(!disable)//处理disabled属性不适应0/1的问题
       this.disable = disable
@@ -93,11 +94,22 @@ var vm = new Vue({
    },
    /*------------------ 响应值变化方法 ------------------*/
    computed: {
-      exceeds_limit() {//提示
-         if (this.input_temp <= 30 && this.input_temp >= 15 || this.input_temp == '')
+      exceeds_limit() {//温度输入提示
+         if ((this.input_temp <= 30 && this.input_temp >= 15) || this.input_temp == '')
             return ''
-         else
-            return '设置的温度超出限制'
+         return '  输入温度超出限度'
+      },
+      smart_tip(){//智能模式提示
+         if(this.mode=='智能模式'&&this.exceeds_limit=='')
+            return '智能模式将维持 温度26℃ 湿度50%'
+         return ''
+      },
+      tips_color(){
+         if ((this.input_temp > 30 || this.input_temp < 15)&&this.input_temp!='')
+            return 'rgba(233, 61, 61, 0.972)'
+         if(this.mode=='智能模式')
+            return 'rgba(88,246,170,0.777)'
+         return 'white' 
       },
       wind() {//显示风速
          // console.log(this.speed)
