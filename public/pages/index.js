@@ -50,7 +50,7 @@ var vm = new Vue({
       this.name = obj.name || 'JJLin'
       console.log('拿到名字', this.name);
       //获取空调/灯的设置
-      var success_ac = fetch(`http://aihouse.club/node/ac/get_instruct?name=${this.name}`)
+      var success_ac = fetch(`http://aihouse.club/node/get_ac_lights?name=${this.name}`)
       success_ac.catch(err => console.log(err))
       var res = await success_ac
       res = await res.json()
@@ -129,7 +129,7 @@ var vm = new Vue({
       async air_states() {//向服务端发送空调命令
          var { name, aim_temp, mode, speed, damp_dispel, disable } = this
 
-         var success = fetch(`http://aihouse.club/node/ac/set_instruct`, {
+         var success = fetch(`http://aihouse.club/node/set_ac`, {
             headers: new Headers({ 'Content-Type': 'application/json' }),
             body: JSON.stringify({ name, aim_temp, mode, speed, damp_dispel, disable }),
             method: 'POST'
@@ -147,7 +147,7 @@ var vm = new Vue({
 
          window.clearTimeout(TIMEOUT)
          TIMEOUT = window.setTimeout(async () => {//防止滑动多次发送请求
-            var success = fetch(`http://aihouse.club/node/set_light`, {
+            var success = fetch(`http://aihouse.club/node/set_lights`, {
                headers: new Headers({ 'Content-Type': 'application/json' }),
                body: JSON.stringify({ name, dinning_l, bath_l, sitting_l, bedroom_l }),
                method: 'POST'

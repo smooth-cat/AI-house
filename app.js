@@ -32,19 +32,19 @@ app.get('/node/temp_damp', async (req, res) => {//响应实时温度/湿度请�
    res.json(temp_damp)
 })
 
-app.get('/node/ac/get_instruct',async (req,res)=>{//获取数据库中空调指令和灯
+app.get('/node/get_ac_lights',async (req,res)=>{//获取数据库中空调指令和灯
    var instruct=await get_instruct(pool,req.query.name)
    console.log('发送初始设置:', instruct)
    res.json(instruct)
 })
 
-app.post('/node/ac/set_instruct',async (req,res)=>{//设置空调状态
+app.post('/node/set_ac',async (req,res)=>{//设置空调状态
    // console.log('接到空调设置:',req.body)
    await set_instruct(pool,req.body)
    res.send('空调设置成功')
 })
 
-app.post('/node/set_light',async(req,res)=>{//设置灯状态
+app.post('/node/set_lights',async(req,res)=>{//设置灯状态
    console.log('接到灯光设置:',req.body)
    await set_lights(pool,req.body)
    res.send('灯光设置成功')
