@@ -14,10 +14,8 @@ function getConnect(pool) {
 function keyVal(user){
     var keys=[]
     var vals=[]
-    for(var key in user){
-        keys.push(key);
-        vals.push(user[key]);
-    }
+    keys=Object.keys(user)
+    vals=Object.values(user)
     return {keys,vals}
 }
 //增
