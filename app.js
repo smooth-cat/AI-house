@@ -60,6 +60,7 @@ app.post('/node/set_lights',async(req,res)=>{//设置灯状态
 var pool = mysql.createPool({//创建连接池
     connectionLimit: 15,
     host: 'localhost',
+    port:3306,
     user: 'root',
     password: 'mysql',
     database: 'test'
