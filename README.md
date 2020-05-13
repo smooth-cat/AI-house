@@ -2,7 +2,7 @@
       这是一个网页版的智能家居项目
 ## 项目效果图
 <img width="550px" src="https://github.com/smooth-cat/AI-house/blob/master/public/imgs/preview.gif">
-<img width="550px" src="https://github.com/smooth-cat/AI-house/blob/master/public/imgs/index_preview.gif">
+<img width="550px" src="https://github.com/smooth-cat/AI-house/blob/master/public/imgs/index_preview.png">
 ## 如何启动这个项目
 
 ### 1.下载此项目
