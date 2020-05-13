@@ -1,6 +1,8 @@
 # Smart Home
-      大家一起来维护这个项目把
       这是一个网页版的智能家居项目
+## 项目效果图
+<img width="800px" src="https://github.com/smooth-cat/AI-house/blob/master/public/imgs/preview.gif">
+<img width="800px" src="https://github.com/smooth-cat/AI-house/blob/master/public/imgs/login_preview.png">
 ## 如何启动这个项目
 
 ### 1.下载此项目
