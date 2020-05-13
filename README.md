@@ -2,9 +2,9 @@
       这是一个网页版的智能家居项目
 ## 项目效果图
 <img width="550px" src="https://github.com/smooth-cat/AI-house/blob/master/public/imgs/preview.gif">
-<img width="550px" src="https://github.com/smooth-cat/AI-house/blob/master/public/imgs/index_preview.png">
-## 如何启动这个项目
+<img width="550px" src="https://github.com/smooth-cat/AI-house/blob/master/public/imgs/index_preview.png">  
 
+## 如何启动这个项目
 ### 1.下载此项目
    下载此项目后，**解压至F:/Back**,
    将文件夹名由 AI-house-master 改为 node-express，
