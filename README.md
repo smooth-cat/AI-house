@@ -89,7 +89,9 @@
            sitting_l int,
            bedroom_l int
       );
-      //使用旧版身份验证方式(node只能以旧方式连接MySQL,所以添加以下设置)
+      //出现以下错误
+      //Error: ER_NOT_SUPPORTED_AUTH_MODE: Client does not support authentication protocol requested by server; consider upgrading     
+      //请使用旧版身份验证方式(node只能以旧方式连接MySQL,所以添加以下设置)
       use mysql;
       ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'mysql';
       flush privileges;
